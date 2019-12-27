@@ -1,4 +1,4 @@
-./: {*/ -build/ -upstream/} doc{README.md} manifest
+./: {*/ -build/ -upstream/} manifest doc{README.md} $doc_dir/doc{**}
 
 # Don't install tests.
 #
