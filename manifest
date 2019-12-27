@@ -6,7 +6,7 @@ license: MIT
 description-file: README.md
 doc-url: https://fmt.dev/
 url: https://github.com/fmtlib/fmt/
-package-url: https://github.com/klaim/fmt-build2/
+package-url: https://github.com/build2-packaging/fmt/
 package-email: mjklaim@gmail.com
 
 depends: * build2 >= 0.12.0
