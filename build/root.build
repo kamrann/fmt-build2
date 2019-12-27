@@ -8,3 +8,10 @@ cxx{*}: extension = cc
 # The test target for cross-testing (running tests under Wine, etc).
 #
 test.target = $cxx.target
+
+
+# Used in buildfiles
+include_dir = $src_root/upstream/include
+src_dir = $src_root/upstream/src
+test_dir = $src_root/upstream/test
+doc_dir = $src_root/upstream/doc

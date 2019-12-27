@@ -2,7 +2,10 @@ int_libs = # Interface dependencies.
 imp_libs = # Implementation dependencies.
 #import imp_libs += libhello%lib{hello}
 
-lib{fmt}: {hxx ixx txx cxx}{** -version} hxx{version} $imp_libs $int_libs
+./ : lib{fmt}
+
+lib{fmt}: $include_dir/hxx{**} $src_dir/cxx{**} {hxx cxx}{** -version } hxx{version} \
+          $imp_libs $int_libs
 
 # Include the generated version header into the distribution (so that we don't
 # pick up an installed one) and don't remove it when cleaning in src (so that
@@ -16,21 +19,26 @@ hxx{version}: in{version} $src_root/manifest
 
 # Build options.
 #
-cxx.poptions =+ "-I$out_root" "-I$src_root"
+cxx.poptions =+ "-I$include_dir" "-I$out_root" "-I$src_root"
 
-obja{*}: cxx.poptions += -DFMT_BUILD2_STATIC_BUILD
-objs{*}: cxx.poptions += -DFMT_BUILD2_SHARED_BUILD
+# TODO: report a segfault when building with the following code uncommented
+# $src_dir/
+# {
+#   using cxx
+# }
+
+objs{*}: cxx.poptions += -DFMT_EXPORT -DFMT_SHARED
 
 # Export options.
 #
 lib{fmt}:
 {
-  cxx.export.poptions = "-I$out_root" "-I$src_root"
+  cxx.export.poptions = "-I$include_dir" "-I$out_root" "-I$src_root"
   cxx.export.libs = $int_libs
 }
 
-liba{fmt}: cxx.export.poptions += -DFMT_BUILD2_STATIC
-libs{fmt}: cxx.export.poptions += -DFMT_BUILD2_SHARED
+libs{fmt}: cxx.export.poptions += -DFMT_SHARED
+
 
 # For pre-releases use the complete version to make sure they cannot be used
 # in place of another pre-release or the final version. See the version module
