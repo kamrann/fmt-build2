@@ -1,0 +1,3 @@
+import libs = fmt-build2%lib{fmt-build2}
+
+exe{driver}: {hxx ixx txx cxx}{**} $libs testscript{**}
