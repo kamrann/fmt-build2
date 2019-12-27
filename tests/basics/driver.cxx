@@ -8,6 +8,6 @@
 
 int main ()
 {
-  ufmt::print("Hello, {}!", "world");  // Python-like format string syntax
+  fmt::print("Hello, {}!", "world");  // Python-like format string syntax
   fmt::printf("Hello, %s!", "world"); // printf format string syntax
 }

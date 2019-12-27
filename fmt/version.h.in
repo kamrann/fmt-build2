@@ -19,7 +19,7 @@
 // 3.0.0-b.2    0000299999999995020
 // 2.2.0-a.1.z  0000200001999990011
 //
-#define FMT_VERSION       $fmt.version.project_number$ULL
+#define FMT_VERSION_BUILD2 $fmt.version.project_number$ULL
 #define FMT_VERSION_STR   "$fmt.version.project$"
 #define FMT_VERSION_ID    "$fmt.version.project_id$"
 

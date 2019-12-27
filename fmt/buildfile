@@ -20,13 +20,14 @@ hxx{version}: in{version} $src_root/manifest
 # Build options.
 #
 cxx.poptions =+ "-I$include_dir" "-I$out_root" "-I$src_root"
+objs{*}: cxx.poptions += -DFMT_EXPORT -DFMT_SHARED
 
+# TODO: find a way to set these to any source objs related to the target :/
 ../upstream/src/ # TODO: report that we cannot use $src_dir/ here.
 {
   cxx.poptions =+ "-I$include_dir" "-I$out_root" "-I$src_root"
+  objs{*}: cxx.poptions += -DFMT_EXPORT -DFMT_SHARED
 }
-
-objs{*}: cxx.poptions += -DFMT_EXPORT -DFMT_SHARED
 
 # Export options.
 #
