@@ -57,3 +57,14 @@ else
   install         = include/fmt/
   install.subdirs = true
 }
+
+# TODO: find a better way to do this :c
+../upstream/include/fmt/
+{
+  {hxx ixx txx}{*}:
+  {
+    install         = include/fmt/
+    install.subdirs = true
+  } 
+}
+
