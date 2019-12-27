@@ -1,4 +1,4 @@
-project = fmt-build2
+project = fmt
 
 using version
 using config

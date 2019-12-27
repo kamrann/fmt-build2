@@ -1,6 +1,6 @@
 $out_root/
 {
-  include fmt-build2/
+  include fmt/
 }
 
-export $out_root/fmt-build2/$import.target
+export $out_root/fmt/$import.target

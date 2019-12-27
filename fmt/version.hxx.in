@@ -19,15 +19,15 @@
 // 3.0.0-b.2    0000299999999995020
 // 2.2.0-a.1.z  0000200001999990011
 //
-#define FMT_BUILD2_VERSION       $fmt_build2.version.project_number$ULL
-#define FMT_BUILD2_VERSION_STR   "$fmt_build2.version.project$"
-#define FMT_BUILD2_VERSION_ID    "$fmt_build2.version.project_id$"
+#define FMT_VERSION       $fmt.version.project_number$ULL
+#define FMT_VERSION_STR   "$fmt.version.project$"
+#define FMT_VERSION_ID    "$fmt.version.project_id$"
 
-#define FMT_BUILD2_VERSION_MAJOR $fmt_build2.version.major$
-#define FMT_BUILD2_VERSION_MINOR $fmt_build2.version.minor$
-#define FMT_BUILD2_VERSION_PATCH $fmt_build2.version.patch$
+#define FMT_VERSION_MAJOR $fmt.version.major$
+#define FMT_VERSION_MINOR $fmt.version.minor$
+#define FMT_VERSION_PATCH $fmt.version.patch$
 
-#define FMT_BUILD2_PRE_RELEASE   $fmt_build2.version.pre_release$
+#define FMT_PRE_RELEASE   $fmt.version.pre_release$
 
-#define FMT_BUILD2_SNAPSHOT_SN   $fmt_build2.version.snapshot_sn$ULL
-#define FMT_BUILD2_SNAPSHOT_ID   "$fmt_build2.version.snapshot_id$"
+#define FMT_SNAPSHOT_SN   $fmt.version.snapshot_sn$ULL
+#define FMT_SNAPSHOT_ID   "$fmt.version.snapshot_id$"
