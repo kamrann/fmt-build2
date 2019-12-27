@@ -21,11 +21,10 @@ hxx{version}: in{version} $src_root/manifest
 #
 cxx.poptions =+ "-I$include_dir" "-I$out_root" "-I$src_root"
 
-# TODO: report a segfault when building with the following code uncommented
-# $src_dir/
-# {
-#   using cxx
-# }
+../upstream/src/ # TODO: report that we cannot use $src_dir/ here.
+{
+  cxx.poptions =+ "-I$include_dir" "-I$out_root" "-I$src_root"
+}
 
 objs{*}: cxx.poptions += -DFMT_EXPORT -DFMT_SHARED
 
