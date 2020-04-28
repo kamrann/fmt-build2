@@ -1,6 +1,6 @@
 : 1
 name: fmt
-version: 6.2.0+1
+version: 6.2.0+2
 summary: "{fmt} is an open-source formatting library for C++. It can be used as a safe and fast alternative to (s)printf and iostreams."
 license: MIT
 description-file: ./upstream/README.rst
