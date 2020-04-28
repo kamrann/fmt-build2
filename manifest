@@ -4,7 +4,7 @@ version: 6.2.0+2
 summary: "{fmt} is an open-source formatting library for C++. It can be used as a safe and fast alternative to (s)printf and iostreams."
 license: MIT
 description-file: ./upstream/README.rst
-description-type: text/markdown
+description-type: text/plain
 doc-url: https://fmt.dev/
 url: https://github.com/fmtlib/fmt/
 package-url: https://github.com/build2-packaging/fmt/
