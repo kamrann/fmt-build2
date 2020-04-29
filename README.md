@@ -1,7 +1,7 @@
 `{fmt}` library - Build2 package
 ================================
 
-See [`{fmd}` documentation](https://github.com/fmtlib/fmt/Readme.rst) for usage and details.
+See [`{fmt}` documentation](https://fmt.dev/) for usage and details.
 
  - `{fmt}` : https://github.com/fmtlib/fmt/
  - Build2 : https://build2.org
