@@ -4,6 +4,7 @@ using cxx
 
 hxx{*}: extension = h
 cxx{*}: extension = cc
+mxx{*}: extension = cc
 
 # The test target for cross-testing (running tests under Wine, etc).
 #
@@ -15,3 +16,5 @@ include_dir = $src_root/upstream/include
 src_dir = $src_root/upstream/src
 test_dir = $src_root/upstream/test
 doc_dir = $src_root/upstream/doc
+
+include $src_root/build/config-options.build2

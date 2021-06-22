@@ -4,8 +4,16 @@ imp_libs = # Implementation dependencies.
 
 ./ : lib{fmt}
 
-lib{fmt}: $include_dir/hxx{**} $src_dir/cxx{**} {hxx cxx}{** -version } hxx{version} \
-          $imp_libs $int_libs
+lib{fmt}: $include_dir/hxx{**} hxx{version} $imp_libs $int_libs
+
+if($config.fmt.enable_modules)
+{
+  lib{fmt}: $src_dir/mxx{fmt} # `fmt` C++ module
+}
+else
+{
+  lib{fmt}: $src_dir/cxx{** -fmt} {hxx cxx}{** -version }
+}
 
 # Include the generated version header into the distribution (so that we don't
 # pick up an installed one) and don't remove it when cleaning in src (so that
@@ -65,6 +73,6 @@ else
   {
     install         = include/fmt/
     install.subdirs = true
-  } 
+  }
 }
 
