@@ -16,3 +16,8 @@ exe{*}: test = true
 test.target = $cxx.target
 
 include $src_root/build/config-options.build2
+
+if($config.fmt.enable_modules)
+{
+    mxx{*}: extension = cc
+}

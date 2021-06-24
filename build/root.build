@@ -10,11 +10,4 @@ mxx{*}: extension = cc
 #
 test.target = $cxx.target
 
-
-# Used in buildfiles
-include_dir = $src_root/upstream/include
-src_dir = $src_root/upstream/src
-test_dir = $src_root/upstream/test
-doc_dir = $src_root/upstream/doc
-
 include $src_root/build/config-options.build2

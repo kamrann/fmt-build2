@@ -4,44 +4,39 @@ imp_libs = # Implementation dependencies.
 
 ./ : lib{fmt}
 
-lib{fmt}: $include_dir/hxx{**} hxx{version} $imp_libs $int_libs
+lib{fmt}: include/hxx{**} hxx{version} $imp_libs $int_libs
 
 if($config.fmt.enable_modules)
 {
-  lib{fmt}: $src_dir/mxx{fmt} # `fmt` C++ module
+  lib{fmt}: src/mxx{fmt} # `fmt` C++ module
 }
 else
 {
-  lib{fmt}: $src_dir/cxx{** -fmt} {hxx cxx}{** -version }
+  lib{fmt}: src/cxx{** -fmt}
 }
 
 # Include the generated version header into the distribution (so that we don't
 # pick up an installed one) and don't remove it when cleaning in src (so that
 # clean results in a state identical to distributed).
 #
-hxx{version}: in{version} $src_root/manifest
+hxx{version} : in{version} $src_root/manifest
 {
   dist  = true
   clean = ($src_root != $out_root)
+  install = include/fmt
 }
+
 
 # Build options.
 #
-cxx.poptions =+ "-I$include_dir" "-I$out_root" "-I$src_root"
+cxx.poptions =+ "-I$src_base/include" "-I$out_root" "-I$src_root"
 objs{*}: cxx.poptions += -DFMT_EXPORT -DFMT_SHARED
-
-# TODO: find a way to set these to any source objs related to the target :/
-../upstream/src/ # TODO: report that we cannot use $src_dir/ here.
-{
-  cxx.poptions =+ "-I$include_dir" "-I$out_root" "-I$src_root"
-  objs{*}: cxx.poptions += -DFMT_EXPORT -DFMT_SHARED
-}
 
 # Export options.
 #
 lib{fmt}:
 {
-  cxx.export.poptions = "-I$include_dir" "-I$out_root" "-I$src_root"
+  cxx.export.poptions = "-I$src_base/include" "-I$out_root" "-I$src_root"
   cxx.export.libs = $int_libs
 }
 
@@ -60,19 +55,11 @@ else
 # Install into the fmt/ subdirectory of, say, /usr/include/
 # recreating subdirectories.
 #
-{hxx ixx txx}{*}:
-{
-  install         = include/fmt/
-  install.subdirs = true
-}
-
-# TODO: find a better way to do this :c
-../upstream/include/fmt/
+include/
 {
   {hxx ixx txx}{*}:
   {
-    install         = include/fmt/
+    install         = include/
     install.subdirs = true
   }
 }
-
