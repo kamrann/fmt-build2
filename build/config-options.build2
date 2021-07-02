@@ -4,5 +4,4 @@
 
 # Set to true to build and provide the `fmt` C++ module.
 config [bool] config.fmt.enable_modules ?= $cxx.features.modules # $($cxx.features.modules == true)
-info "`fmt` Option: config.fmt.enable_modules = $config.fmt.enable_modules"
 
