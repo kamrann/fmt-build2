@@ -2,7 +2,6 @@
 #include <chrono>
 #include <vector>
 
-#include <fmt/version.h>
 #include <fmt/printf.h>
 #include <fmt/core.h>
 #include <fmt/format.h>
