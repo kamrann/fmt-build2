@@ -10,4 +10,10 @@ mxx{*}: extension = cc
 #
 test.target = $cxx.target
 
-include $src_root/build/config-options.build2
+
+##############################
+# Project-specific options:
+
+# Set to true to build and provide the `fmt` C++ module.
+config [bool] config.fmt.enable_modules ?= $cxx.features.modules # $($cxx.features.modules == true)
+

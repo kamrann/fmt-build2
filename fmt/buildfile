@@ -9,6 +9,12 @@ lib{fmt}: include/hxx{**} hxx{version} $imp_libs $int_libs
 lib{fmt}: src/mxx{fmt} : include = ($config.fmt.enable_modules) # `fmt` C++ module only
 lib{fmt}: src/cxx{** -fmt} : include = (!$config.fmt.enable_modules) # no modules only
 
+# Meta data for users
+lib{fmt}:
+{
+  fmt.is_module = [bool] $config.fmt.enable_modules
+}
+
 # Include the generated version header into the distribution (so that we don't
 # pick up an installed one) and don't remove it when cleaning in src (so that
 # clean results in a state identical to distributed).

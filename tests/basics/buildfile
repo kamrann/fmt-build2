@@ -2,7 +2,7 @@ import libs = fmt%lib{fmt}
 
 ./ : exe{driver} : {cxx}{driver} hxx{tests.inl} $libs testscript{**}
 
-if($config.fmt.enable_modules)
+if $($libs: fmt.is_module)
 {
     ./ : exe{driver-modules} : {cxx}{driver-modules} hxx{tests.inl} $libs testscript{**}
 }
