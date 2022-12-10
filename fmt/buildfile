@@ -6,14 +6,8 @@ imp_libs = # Implementation dependencies.
 
 lib{fmt}: include/hxx{**} hxx{version} $imp_libs $int_libs
 
-if($config.fmt.enable_modules)
-{
-  lib{fmt}: src/mxx{fmt} # `fmt` C++ module
-}
-else
-{
-  lib{fmt}: src/cxx{** -fmt}
-}
+lib{fmt}: src/mxx{fmt} : include = ($config.fmt.enable_modules) # `fmt` C++ module only
+lib{fmt}: src/cxx{** -fmt} : include = (!$config.fmt.enable_modules) # no modules only
 
 # Include the generated version header into the distribution (so that we don't
 # pick up an installed one) and don't remove it when cleaning in src (so that
