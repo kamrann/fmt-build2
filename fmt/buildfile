@@ -12,6 +12,7 @@ lib{fmt}: src/cxx{** -fmt} : include = (!$config.fmt.enable_modules) # no module
 # Meta data for users
 lib{fmt}:
 {
+  export.metadata = 1 fmt
   fmt.is_module = [bool] $config.fmt.enable_modules
 }
 

@@ -1,4 +1,4 @@
-import libs = fmt%lib{fmt}
+import! [metadata, rule_hint=cxx.link] libs = fmt%lib{fmt}
 
 ./ : exe{driver} : {cxx}{driver} hxx{tests.inl} $libs testscript{**}
 
