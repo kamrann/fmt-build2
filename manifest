@@ -12,6 +12,3 @@ package-email: mjklaim@gmail.com
 depends: * build2 >= 0.15.0
 depends: * bpkg >= 0.15.0
 
-build-exclude: **windows_10-msvc_17.2** ; See https://github.com/fmtlib/fmt/issues/3224
-build-exclude: **windows_10-msvc_17.3** ; See https://github.com/fmtlib/fmt/issues/3224
-

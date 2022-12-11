@@ -55,7 +55,9 @@ struct fmt::formatter<date> {
 
   template <typename FormatContext>
   auto format(const date& d, FormatContext& ctx) {
-    return format_to(ctx.out(), "{}-{}-{}", d.year, d.month, d.day);
+     // Namespace-qualify to avoid ambiguity with std::format_to.
+    fmt::format_to(ctx.out(), "{}-{}-{}", d.year, d.month, d.day);
+    return ctx.out();
   }
 };
 
