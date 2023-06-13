@@ -33,6 +33,9 @@ hxx{version} : in{version} $src_root/manifest
 cxx.poptions =+ "-I$src_base/include" "-I$out_root" "-I$src_root"
 objs{*}: cxx.poptions += -DFMT_LIB_EXPORT
 
+if($config.fmt.enable_modules)
+  cxx.poptions =+ -DFMT_MODULE=ON
+
 # Export options.
 #
 lib{fmt}:
