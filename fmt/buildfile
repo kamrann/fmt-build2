@@ -31,7 +31,7 @@ hxx{version} : in{version} $src_root/manifest
 # Build options.
 #
 cxx.poptions =+ "-I$src_base/include" "-I$out_root" "-I$src_root"
-objs{*}: cxx.poptions += -DFMT_EXPORT -DFMT_SHARED
+objs{*}: cxx.poptions += -DFMT_LIB_EXPORT
 
 # Export options.
 #
