@@ -18,6 +18,6 @@
 #
 #*.png binary
 
-fmt/include symlink=dir
-fmt/src symlink=dir
-doc symlink=dir
+fmt/fmt/include symlink=dir
+fmt/fmt/src symlink=dir
+fmt/doc symlink=dir
