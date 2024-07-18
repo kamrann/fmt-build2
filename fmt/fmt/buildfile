@@ -6,14 +6,17 @@ imp_libs = # Implementation dependencies.
 
 lib{fmt}: include/hxx{**} hxx{version} $imp_libs $int_libs
 
-lib{fmt}: src/mxx{fmt} : include = ($config.fmt.enable_modules) # `fmt` C++ module only
-lib{fmt}: src/cxx{** -fmt} : include = (!$config.fmt.enable_modules) # no modules only
+# Automatically build as module if the feature is enabled
+build_fmt_module = $cxx.features.modules
+
+lib{fmt}: src/mxx{fmt} : include = ($build_fmt_module) # `fmt` C++ module only
+lib{fmt}: src/cxx{** -fmt} : include = (!$build_fmt_module) # no modules only
 
 # Meta data for users
 lib{fmt}:
 {
   export.metadata = 1 fmt
-  fmt.is_module = [bool] $config.fmt.enable_modules
+  fmt.is_module = [bool] $build_fmt_module
 }
 
 # Include the generated version header into the distribution (so that we don't
@@ -33,8 +36,8 @@ hxx{version} : in{version} $src_root/manifest
 cxx.poptions =+ "-I$src_base/include" "-I$out_root" "-I$src_root"
 objs{*}: cxx.poptions += -DFMT_LIB_EXPORT
 
-if($config.fmt.enable_modules)
-  cxx.poptions =+ -DFMT_MODULE=ON
+if($build_fmt_module)
+  cxx.poptions =+ -DFMT_MODULE
 
 # Export options.
 #
