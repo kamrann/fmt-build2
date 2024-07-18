@@ -34,7 +34,7 @@ hxx{version} : in{version} $src_root/manifest
 # Build options.
 #
 cxx.poptions =+ "-I$src_base/include" "-I$out_root" "-I$src_root"
-objs{*}: cxx.poptions += -DFMT_LIB_EXPORT
+{objs bmis}{*}: cxx.poptions += -DFMT_LIB_EXPORT
 
 if($build_fmt_module)
   cxx.poptions =+ -DFMT_MODULE
