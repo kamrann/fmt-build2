@@ -36,8 +36,9 @@ hxx{version} : in{version} $src_root/manifest
 cxx.poptions =+ "-I$src_base/include" "-I$out_root" "-I$src_root"
 {objs bmis}{*}: cxx.poptions += -DFMT_LIB_EXPORT
 
+# If building fmt module, also enable attaching to the global module in order to allow concurrent #include and import.
 if($build_fmt_module)
-  cxx.poptions =+ -DFMT_MODULE
+  cxx.poptions =+ -DFMT_MODULE -DFMT_ATTACH_TO_GLOBAL_MODULE
 
 # Export options.
 #
