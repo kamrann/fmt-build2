@@ -14,3 +14,4 @@ test.target = $cxx.target
 ##############################
 # Project-specific options:
 
+config [bool]    config.fmt.enable_import_std ?= false
