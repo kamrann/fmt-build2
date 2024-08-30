@@ -9,6 +9,7 @@ url: https://github.com/fmtlib/fmt/
 package-url: https://github.com/build2-packaging/fmt/
 package-email: mjklaim@gmail.com
 
+tests: fmt-tests == $
+
 depends: * build2 >= 0.17.0
 depends: * bpkg >= 0.17.0
-

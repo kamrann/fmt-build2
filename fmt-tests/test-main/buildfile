@@ -1,0 +1,13 @@
+
+libs =
+import libs += fmt%lib{fmt}
+import libs += gtest%lib{gtest} gmock%lib{gmock}
+
+liba{test-main}: test/cxx{test-main gtest-extra util} test/hxx{gtest-extra} $libs
+
+# Export options.
+#
+liba{test-main}:
+{
+  cxx.export.libs = $libs
+}

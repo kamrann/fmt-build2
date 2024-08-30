@@ -1,0 +1,37 @@
+include ../test-main/
+
+#test_names =
+#  args-test \
+#  assert-test \
+#  base-test
+gtest_test_names = args-test assert-test base-test chrono-test color-test compile-fp-test compile-test format-test gtest-extra-test noexception-test os-test ostream-test posix-mock-test printf-test ranges-odr-test ranges-test std-test unicode-test xchar-test
+# header-only-test
+# scan-test
+
+standalone_test_names = enforce-checks-test # some way to pair these? -DFMT_ENFORCE_COMPILE_STRING
+
+for test_name : $gtest_test_names
+{
+  ./: exe{$test_name} : test/cxx{$test_name}
+  exe{$test_name}: ../test-main/liba{test-main}:
+  {
+    bin.whole = true
+  }
+}
+
+# linker issues.
+#./: exe{scan-test} : test/cxx{scan-test} ../test-main/liba{test-main}
+
+# @todo: cmake adds this test conditionally on NOT ( msvc AND fmt-shared )
+# in build2, i guess it's a bit different in that we can potentially build both shared and static variants within a single config?
+# also not clear how fmt_shared/fmt_header_only is being configured, looks like the package doesn't do anything there. using defaults only?
+# if $cxx. != msvc
+#./: exe{format-impl-test} : test/cxx{format-impl-test header-only-test} ../test-main/liba{test-main}
+
+
+import fmt = fmt%lib{fmt}
+
+for test_name : $standalone_test_names
+{
+  ./: exe{$test_name} : test/cxx{$test_name} $fmt
+}

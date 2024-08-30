@@ -1,0 +1,13 @@
+: 1
+name: fmt-tests
+version: 0.1.0-a.0.z
+project: fmt
+summary: Tests package for fmt upstream tests
+license: MIT
+url: https://github.com/fmtlib/fmt/
+
+depends: * build2 >= 0.17.0
+depends: * bpkg >= 0.17.0
+
+depends: gtest ^1.11.0
+depends: gmock ^1.11.0
