@@ -14,7 +14,7 @@ tests: fmt-tests == $
 depends: * build2 >= 0.17.0
 depends: * bpkg >= 0.17.0
 
-modules-builds: experimental : &( +clang-18+ ) ; Modules builds only supported for latest Clang and MSVC
+modules-builds: experimental : &( +clang-18+ +msvc ) ; Modules builds only supported for latest Clang and MSVC
 modules-build-config: config.cxx.features.modules=true ; Enable c++20 modules
-modules-only-builds: experimental : &( +clang-18+ ) ; Modules builds only supported for latest Clang and MSVC
+modules-only-builds: experimental : &( +clang-18+ +msvc ) ; Modules builds only supported for latest Clang and MSVC
 modules-only-build-config: config.cxx.features.modules=true config.fmt.modules_only=true ; Enable c++20 modules and disable header usage
