@@ -13,6 +13,10 @@ allow_header_usage = ($build_fmt_module == false || $config.fmt.modules_only == 
 if($build_fmt_module && $allow_header_usage)
   info "Building fmt with dual module/header mode enabled"
 
+# Workaround for MSVC bug: https://developercommunity.visualstudio.com/t/Separate-preprocessing-with-P-fails-wit/10707183
+if($build_fmt_module && $cxx.class == 'msvc')
+  cxx.reprocess = true
+
 lib{fmt}: src/mxx{fmt} : include = ($build_fmt_module) # `fmt` C++ module only
 lib{fmt}: src/cxx{** -fmt} : include = (!$build_fmt_module) # no modules only
 
