@@ -51,7 +51,8 @@ struct date {
 
 template <>
 struct fmt::formatter<date> {
-  constexpr auto parse(format_parse_context& ctx) const { return ctx.begin(); }
+  template <typename ParseContext>
+  constexpr auto parse(ParseContext& ctx) const { return ctx.begin(); }
 
   template <typename FormatContext>
   constexpr auto format(const date& d, FormatContext& ctx) const {
