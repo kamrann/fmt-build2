@@ -13,3 +13,6 @@ tests: fmt-tests == $
 
 depends: * build2 >= 0.17.0
 depends: * bpkg >= 0.17.0
+
+modules-build-config: config.cxx.features.modules=true ; Enable c++20 modules
+modules-only-build-config: config.cxx.features.modules=true config.fmt.modules_only=true ; Enable c++20 modules and disable header usage
