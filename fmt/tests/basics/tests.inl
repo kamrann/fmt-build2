@@ -21,17 +21,17 @@ int main ()
 
   {
     fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold,
-                 "Hello, {}!\n", "world");
+              "Hello, {}!\n", "world");
     fmt::print(fg(fmt::color::floral_white) | bg(fmt::color::slate_gray) |
-                fmt::emphasis::underline, "Hello, {}!\n", "мир");
+              fmt::emphasis::underline, "Olá, {}!\n", "Mundo");
     fmt::print(fg(fmt::color::steel_blue) | fmt::emphasis::italic,
-                "Hello, {}!\n", "世界");
+              "你好{}！\n", "世界");
   }
 
   {
-    using namespace std::literals::chrono_literals;
-    fmt::print("Default format: {} {}\n", 42s, 100ms);
-    fmt::print("strftime-like format: {:%H:%M:%S}\n", 3h + 15min + 30s);
+    auto now = std::chrono::system_clock::now();
+    fmt::print("Date and time: {}\n", now);
+    fmt::print("Time: {:%H:%M}\n", now);
   }
 
   {
@@ -51,11 +51,13 @@ struct date {
 
 template <>
 struct fmt::formatter<date> {
-  constexpr auto parse(format_parse_context& ctx) { return ctx.begin(); }
+  template <typename ParseContext>
+  constexpr auto parse(ParseContext& ctx) const { return ctx.begin(); }
 
   template <typename FormatContext>
-  auto format(const date& d, FormatContext& ctx) {
-    return format_to(ctx.out(), "{}-{}-{}", d.year, d.month, d.day);
+  constexpr auto format(const date& d, FormatContext& ctx) const {
+    // Namespace-qualify to avoid ambiguity with std::format_to.
+    return fmt::format_to(ctx.out(), "{}-{}-{}", d.year, d.month, d.day);
   }
 };
 

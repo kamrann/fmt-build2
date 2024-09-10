@@ -1,0 +1,87 @@
+int_libs = # Interface dependencies.
+imp_libs = # Implementation dependencies.
+#import imp_libs += libhello%lib{hello}
+
+./ : lib{fmt}
+
+lib{fmt}: include/hxx{**} hxx{version} $imp_libs $int_libs
+
+# Automatically build as module if the feature is enabled
+build_fmt_module = $cxx.features.modules
+allow_header_usage = ($build_fmt_module == false || $config.fmt.modules_only == false)
+
+if($build_fmt_module && $allow_header_usage)
+  info "Building fmt with dual module/header mode enabled"
+
+# Workaround for MSVC bug: https://developercommunity.visualstudio.com/t/Separate-preprocessing-with-P-fails-wit/10707183
+if($build_fmt_module && $cxx.class == 'msvc')
+  cc.reprocess = true
+
+lib{fmt}: src/mxx{fmt} : include = ($build_fmt_module) # `fmt` C++ module only
+lib{fmt}: src/cxx{** -fmt} : include = (!$build_fmt_module) # no modules only
+
+# Meta data for users
+lib{fmt}:
+{
+  export.metadata = 1 fmt
+  fmt.has_header = [bool] $allow_header_usage
+  fmt.has_module = [bool] $build_fmt_module
+}
+
+# Include the generated version header into the distribution (so that we don't
+# pick up an installed one) and don't remove it when cleaning in src (so that
+# clean results in a state identical to distributed).
+#
+hxx{version} : in{version} $src_root/manifest
+{
+  dist  = true
+  clean = ($src_root != $out_root)
+  install = include/fmt
+}
+
+
+# Build options.
+#
+cxx.poptions =+ "-I$src_base/include" "-I$out_root" "-I$src_root"
+{objs bmis}{*}: cxx.poptions += -DFMT_LIB_EXPORT
+
+# If building fmt module, also enable attaching to the global module in order to allow concurrent #include and import.
+if($build_fmt_module)
+{
+  cxx.poptions =+ -DFMT_MODULE
+  if($allow_header_usage)
+    # Support mixing consuming as both modules and headers within a single build
+    cxx.poptions =+ -DFMT_ATTACH_TO_GLOBAL_MODULE
+  if($config.fmt.enable_import_std)
+    cxx.poptions =+ -DFMT_IMPORT_STD
+}
+
+# Export options.
+#
+lib{fmt}: cxx.export.libs = $int_libs
+if($allow_header_usage) # Note: exported poptions only relevant for header consumption
+{
+  lib{fmt}: cxx.export.poptions = "-I$src_base/include" "-I$out_root" "-I$src_root"
+  libs{fmt}: cxx.export.poptions += -DFMT_SHARED
+}
+
+# For pre-releases use the complete version to make sure they cannot be used
+# in place of another pre-release or the final version. See the version module
+# for details on the version.* variable values.
+#
+if $version.pre_release
+  lib{fmt}: bin.lib.version = @"-$version.project_id"
+else
+  lib{fmt}: bin.lib.version = @"-$version.major.$version.minor"
+
+# Install into the fmt/ subdirectory of, say, /usr/include/
+# recreating subdirectories.
+#
+include/
+{
+  {hxx ixx txx}{*}:
+  {
+    install         = include/
+    install.subdirs = true
+  }
+}

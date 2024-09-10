@@ -6,6 +6,7 @@ hxx{*}: extension = hxx
 ixx{*}: extension = ixx
 txx{*}: extension = txx
 cxx{*}: extension = cxx
+mxx{*}: extension = cc
 
 # Every exe{} in this subproject is by default a test.
 #
@@ -15,9 +16,3 @@ exe{*}: test = true
 #
 test.target = $cxx.target
 
-include $src_root/build/config-options.build2
-
-if($config.fmt.enable_modules)
-{
-    mxx{*}: extension = cc
-}

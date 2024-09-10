@@ -10,4 +10,9 @@ mxx{*}: extension = cc
 #
 test.target = $cxx.target
 
-include $src_root/build/config-options.build2
+
+##############################
+# Project-specific options:
+
+config [bool]    config.fmt.enable_import_std ?= false
+config [bool]    config.fmt.modules_only ?= false
