@@ -1,7 +1,5 @@
 import! [metadata, rule_hint=cxx.link] libs = fmt%lib{fmt}
 
-./ :
-
 ./ : exe{driver} : include = $($libs: fmt.has_header)
 ./ : exe{driver-modules} : include = $($libs: fmt.has_module)
 
