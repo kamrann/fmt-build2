@@ -1,0 +1,69 @@
+include ../test-main/
+
+# NOTE: Maintaining explicit lists to match upstream, as it's not clear that there is intended to be a uniform pattern that can be reliably globbed.
+# See individual invocations of add_fmt_test() in upstream/test/CMakeLists.txt
+
+
+# Tests that use gtest, and do not require any additional source/headers beyond a single cc file
+
+gtest_test_names =      \
+  args-test             \
+  assert-test           \
+  base-test             \
+  chrono-test           \
+  color-test            \
+  compile-fp-test       \
+  compile-test          \
+  format-test           \
+  gtest-extra-test      \
+  noexception-test      \
+  os-test               \
+  ostream-test          \
+  printf-test           \
+  std-test              \
+  unicode-test          \
+  xchar-test
+
+# NOTE: header-only-test - Excluded as this package does not currently provide support for FMT_HEADER_ONLY.
+# TODO: scan-test - Excluded due to unresolved linker errors.
+
+for test_name : $gtest_test_names
+{
+  ./: exe{$test_name} : test/cxx{$test_name}
+  exe{$test_name}: ../test-main/liba{test-main}:
+  {
+    bin.whole = true
+  }
+}
+
+# END [Tests that use gtest, and do not require any additional source/headers beyond a single cc file]
+
+
+# Tests using gtest but with additional prerequisites
+
+./: exe{ranges-test} : test/cxx{ranges-test ranges-odr-test}
+exe{ranges-test}: ../test-main/liba{test-main}:
+{
+  bin.whole = true
+}
+
+# NOTE: format-impl-test- For whatever reason, format-impl-test is tied in upstream to header-only-test, which we do not support. Attempting to compile it alone yields errors, therefore omitted.
+# TODO: posix-mock-test - Excluded pending further work. Needs posix-mock.h, and has some msvc/runtime conditional logic that needs looking into.
+
+# END [Tests using gtest but with additional prerequisites]
+
+
+# Tests which do not use gtest and therefore should link directly to fmt only and not the test-main lib
+
+# TODO: Is there a clean way to use a declarative list but with more structure, in order to pair names to additional options?
+standalone_test_names = \
+  enforce-checks-test           # -DFMT_ENFORCE_COMPILE_STRING
+
+import fmt = fmt%lib{fmt}
+
+for test_name : $standalone_test_names
+{
+  ./: exe{$test_name} : test/cxx{$test_name} $fmt
+}
+
+# END [Tests which do not use gtest and therefore should link directly to fmt only and not the test-main lib]

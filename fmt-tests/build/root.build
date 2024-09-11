@@ -1,0 +1,19 @@
+# Uncomment to suppress warnings coming from external libraries.
+#
+#cxx.internal.scope = current
+
+cxx.std = latest
+
+using cxx
+
+hxx{*}: extension = h
+mxx{*}: extension = cc
+cxx{*}: extension = cc
+
+# All executables are tests
+#
+exe{*}: test = true
+
+# The test target for cross-testing (running tests under Wine, etc).
+#
+test.target = $cxx.target
