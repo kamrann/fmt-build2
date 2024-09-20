@@ -1,10 +1,6 @@
-int_libs = # Interface dependencies.
-imp_libs = # Implementation dependencies.
-#import imp_libs += libhello%lib{hello}
-
 ./ : lib{fmt}
 
-lib{fmt}: include/hxx{**} hxx{version} $imp_libs $int_libs
+lib{fmt}: include/hxx{**} hxx{version}
 
 # Automatically build as module if the feature is enabled
 build_fmt_module = $cxx.features.modules
@@ -42,7 +38,7 @@ hxx{version} : in{version} $src_root/manifest
 
 # Build options.
 #
-cxx.poptions =+ "-I$src_base/include" "-I$out_root" "-I$src_root"
+cxx.poptions =+ "-I$src_base/include" "-I$out_root"
 {objs bmis}{*}: cxx.poptions += -DFMT_LIB_EXPORT
 
 # If building fmt module, also enable attaching to the global module in order to allow concurrent #include and import.
@@ -58,10 +54,9 @@ if($build_fmt_module)
 
 # Export options.
 #
-lib{fmt}: cxx.export.libs = $int_libs
 if($allow_header_usage) # Note: exported poptions only relevant for header consumption
 {
-  lib{fmt}: cxx.export.poptions = "-I$src_base/include" "-I$out_root" "-I$src_root"
+  lib{fmt}: cxx.export.poptions = "-I$src_base/include" "-I$out_root"
   libs{fmt}: cxx.export.poptions += -DFMT_SHARED
 }
 
